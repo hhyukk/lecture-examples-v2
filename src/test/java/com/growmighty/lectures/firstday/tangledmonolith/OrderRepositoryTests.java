@@ -38,7 +38,7 @@ class OrderRepositoryTests {
         entityManager.persist(product);
 
         List<OrderItem> items = new ArrayList<>();
-        items.add(OrderItem.create(product, 1));
+        items.add(OrderItem.create(product.getId(), product.getName(), product.getPrice(), 1));
         Order order = Order.create(user.getId(), items);
 
         Order saved = orderRepository.save(order);
@@ -50,8 +50,8 @@ class OrderRepositoryTests {
         assertThat(found.getItems()).hasSize(1);
         OrderItem foundItem = found.getItems().get(0);
         assertThat(foundItem.getQuantity()).isEqualTo(1);
-        assertThat(foundItem.getProduct().getId()).isEqualTo(product.getId());
-        assertThat(foundItem.getProduct().getName()).isEqualTo(product.getName());
-        assertThat(foundItem.getProduct().getPrice()).isEqualByComparingTo(product.getPrice());
+        assertThat(foundItem.getProductId()).isEqualTo(product.getId());
+        assertThat(foundItem.getProductName()).isEqualTo(product.getName());
+        assertThat(foundItem.getProductPrice()).isEqualByComparingTo(product.getPrice());
     }
 }

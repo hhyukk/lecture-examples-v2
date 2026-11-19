@@ -48,7 +48,7 @@ public class OrderService {
             }
             product.setStockQuantity(product.getStockQuantity() - quantity);
 
-            OrderItem orderItem = OrderItem.create(product, quantity);
+            OrderItem orderItem = OrderItem.create(product.getId(), product.getName(), product.getPrice(), quantity);
             orderItems.add(orderItem);
 
             BigDecimal lineAmount = product.getPrice().multiply(BigDecimal.valueOf(quantity));
