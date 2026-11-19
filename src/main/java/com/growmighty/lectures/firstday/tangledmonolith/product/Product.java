@@ -1,6 +1,5 @@
 package com.growmighty.lectures.firstday.tangledmonolith.product;
 
-import com.growmighty.lectures.firstday.tangledmonolith.seller.Seller;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -18,9 +17,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "seller_id")
-    private Seller seller;
+    //근거: FK가 seller_id에 있음
+    //판매자 없는 상품은 불가능 하지만 상품 없는 판매자는 가능.
+    @Column(name = "seller_id", nullable = false)
+    private Long sellerId;
 
     @Column(nullable = false)
     private String name;
@@ -35,9 +35,9 @@ public class Product {
     @Lob
     private String description;
 
-    public static Product create(Seller seller, String name, BigDecimal price, Integer stockQuantity, String description) {
+    public static Product create(Long sellerId, String name, BigDecimal price, Integer stockQuantity, String description) {
         Product product = new Product();
-        product.seller = seller;
+        product.sellerId = sellerId;
         product.name = name;
         product.price = price;
         product.stockQuantity = stockQuantity;
