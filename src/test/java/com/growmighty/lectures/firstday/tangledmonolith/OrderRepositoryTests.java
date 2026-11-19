@@ -39,7 +39,7 @@ class OrderRepositoryTests {
 
         List<OrderItem> items = new ArrayList<>();
         items.add(OrderItem.create(product, 1));
-        Order order = Order.create(user, items);
+        Order order = Order.create(user.getId(), items);
 
         Order saved = orderRepository.save(order);
         entityManager.flush();
