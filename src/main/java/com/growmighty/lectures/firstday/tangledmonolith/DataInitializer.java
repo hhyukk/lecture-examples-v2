@@ -38,9 +38,9 @@ public class DataInitializer implements CommandLineRunner {
         Product table = productRepository.save(
                 Product.create(seller, "원목 4인용 식탁", BigDecimal.valueOf(259000), 5, "북유럽 스타일 원목 식탁"));
 
-        Cart cart = Cart.create(buyer);
-        cart.addItem(CartItem.create(chair, 2));
-        cart.addItem(CartItem.create(table, 1));
+        Cart cart = Cart.create(buyer.getId());
+        cart.addItem(CartItem.create(chair.getId(), 2));
+        cart.addItem(CartItem.create(table.getId(), 1));
         cartRepository.save(cart);
 
         System.out.printf(
