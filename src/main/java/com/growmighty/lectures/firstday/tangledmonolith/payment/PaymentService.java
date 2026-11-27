@@ -12,7 +12,8 @@ public class PaymentService {
 
     public Payment pay(BigDecimal totalAmount) {
         Payment payment = Payment.ready(totalAmount);
-        payment.changeStatus(PaymentStatus.PAID);
+        // 새 메서드로 수정
+        payment.approve();
         paymentRepository.save(payment);
         return payment;
     }

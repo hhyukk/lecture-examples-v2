@@ -30,7 +30,17 @@ public class Payment {
         return payment;
     }
 
-    public void changeStatus(PaymentStatus status) {
-        this.status = status;
+    //changeStatus 를 없애고 approve() / fail() 로 변경
+    public void approve() {
+        if (this.status!=PaymentStatus.READY) {
+            throw new IllegalStateException("상태가 READY가 아닙니다.");
+        }
+        this.status = PaymentStatus.PAID;
+    }
+    public void fail() {
+        if (this.status!=PaymentStatus.READY) {
+            throw new IllegalStateException("상태가 READY가 아닙니다.");
+        }
+        this.status = PaymentStatus.FAILED;
     }
 }
