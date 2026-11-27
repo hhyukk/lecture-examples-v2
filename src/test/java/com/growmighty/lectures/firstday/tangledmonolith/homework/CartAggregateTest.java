@@ -101,4 +101,18 @@ class CartAggregateTest {
         cart.removeItem(1L);
         assertThat(cart.getItems()).hasSize(1);
     }
+
+    // [도전] 상품 종류 상한 테스트 추가
+    @Test
+    @DisplayName("상품 종류 상한")
+    void 상품_종류가_50개면_새_상품은_담을_수_없다(){
+        Cart cart = Cart.create(1L);
+        for (int i = 0; i < 50; i++) {
+            cart.addItem(i + 1L, 10);
+        }
+        assertThat(cart.getItems()).hasSize(50);
+        assertThatThrownBy(() -> cart.addItem(51L, 10))
+                .isInstanceOf(IllegalStateException.class);
+        assertThat(cart.getItems()).hasSize(50);
+    }
 }
